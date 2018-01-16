@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift(File.expand_path('../../lib', __FILE__))
+
+require "trigger/task"
+
+template = ARGV[0]
+info = ARGV[1] 
+time = Chronic.parse(ARGV[2])
+
+puts Trigger::Task.reminders_for(template, info, now: time)
+
+
