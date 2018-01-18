@@ -24,7 +24,7 @@ RSpec.describe Trigger::Task do
     end
   end
 
-  describe 'slack_reminders_for' do
+  describe '.slack_reminders_for' do
     subject do
       Trigger::Task.slack_reminders_for('@someone',
         'invite %s to slack'=> Time.mktime(2018,01,15)
@@ -50,7 +50,7 @@ RSpec.describe Trigger::Task do
     end
   end
 
-  describe 'reminders_for' do
+  describe '.reminders_for' do
     before do
       File.open('newcomer.txt', 'w+') do |file|
         file.puts template
