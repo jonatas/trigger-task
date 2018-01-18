@@ -1,10 +1,10 @@
 RSpec.describe Trigger::Task do
 
   let(:template) { <<~TEMPLATE }
-		invite %s to slack at one day before today
-		add %s to our team at today
-		pair programming with %s at next day
-	TEMPLATE
+    invite %s to slack at one day before today
+    add %s to our team at today
+    pair programming with %s at next day
+  TEMPLATE
 
   it "has a version number" do
     expect(Trigger::Task::VERSION).not_to be nil
@@ -24,7 +24,7 @@ RSpec.describe Trigger::Task do
     end
   end
 
-  describe "slack_reminders_for" do 
+  describe "slack_reminders_for" do
     subject do
       Trigger::Task.slack_reminders_for("@someone", {
         "invite %s to slack"=> Time.mktime(2018,01,15)
@@ -51,23 +51,23 @@ RSpec.describe Trigger::Task do
   end
 
   describe 'reminders_for' do
-     before do
-       File.open('newcomer.txt', 'w+') do |file|
-         file.puts template
-			 end
-		 end
-     after { File.delete('newcomer.txt') }
-
-     subject do
-       described_class.reminders_for("newcomer.txt", "@someone", now: Time.mktime(2018,1,21))
-     end
-
-		 specify do
-			 is_expected.to eq([
-				 "/remind me to invite @someone to slack on 01/20/2018",
-				 "/remind me to add @someone to our team on 01/21/2018",
-				 "/remind me to pair programming with @someone on 01/22/2018"
-			 ])
+    before do
+      File.open('newcomer.txt', 'w+') do |file|
+        file.puts template
+      end
     end
-	end
+    after { File.delete('newcomer.txt') }
+
+    subject do
+      described_class.reminders_for("newcomer.txt", "@someone", now: Time.mktime(2018,1,21))
+    end
+
+    specify do
+      is_expected.to eq([
+        "/remind me to invite @someone to slack on 01/20/2018",
+        "/remind me to add @someone to our team on 01/21/2018",
+        "/remind me to pair programming with @someone on 01/22/2018"
+      ])
+    end
+  end
 end
