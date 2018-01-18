@@ -16,19 +16,19 @@ RSpec.describe Trigger::Task do
     end
 
     specify do
-      is_expected.to eq({
-      'invite %s to slack' => Chronic.parse('one day before today'),
-      'add %s to our team' => Chronic.parse('today'),
-      'pair programming with %s' => Chronic.parse('next day')
-      })
+      is_expected.to eq(
+        'invite %s to slack' => Chronic.parse('one day before today'),
+        'add %s to our team' => Chronic.parse('today'),
+        'pair programming with %s' => Chronic.parse('next day')
+      )
     end
   end
 
   describe "slack_reminders_for" do
     subject do
-      Trigger::Task.slack_reminders_for("@someone", {
+      Trigger::Task.slack_reminders_for("@someone",
         "invite %s to slack"=> Time.mktime(2018,01,15)
-      })
+      )
     end
 
     specify do
