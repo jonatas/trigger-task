@@ -6,7 +6,7 @@ module Trigger
     module_function
     def parse commands, now: Time.now
       commands.lines.map do |command|
-				next if command.empty?
+        next if command.empty?
         what, _,  _when = command.chomp.strip.split(/ (at|in) /)
         {what => Chronic.parse(_when, now: now) }
       end.compact.inject(&:merge!)
@@ -25,6 +25,6 @@ module Trigger
     def reminders_for(template, _binding, _when)
       commands = IO.read(template)
       Trigger::Task.load_reminders(_binding, commands, _when)
-		end
+    end
   end
 end
